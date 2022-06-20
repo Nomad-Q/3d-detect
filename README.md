@@ -1,6 +1,6 @@
 # 3d-detect
 
-##思路
+## 思路
 
 1.基于深度学习的3d点云目标检测
 
@@ -10,7 +10,7 @@
 
 优点：算法简单 缺点：需要完整的点云模型
 
-##Reference
+## Reference
 
 pointnet++
 pointDan
