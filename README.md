@@ -12,5 +12,6 @@
 
 ## Reference
 
-pointnet++
+pointnet++ https://github.com/charlesq34/pointnet
+
 pointDan
