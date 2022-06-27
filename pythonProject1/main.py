@@ -46,6 +46,7 @@ def load_ply(path, target):
         r = eval(tmp[3])
         g = eval(tmp[4])
         b = eval(tmp[5])
+        z = eval(tmp[1])
 
         # if r < 200 and g < 200 and b > 50:
         #     continue
@@ -60,10 +61,19 @@ def load_ply(path, target):
         #     continue
         # f_w.writelines(i)
         # count += 1
-
-        if r>=200 and g>=200 and b<=50:
+        if r < 100 and g < 100 and b < 100:
+            continue
+        if z > 800:
+            continue
+        if r > b and g > b:
             f_w.writelines(i)
             count += 1
+        # if r>=150 and g>=1 and b<=100:
+        #     f_w.writelines(i)
+        #     count += 1
+        # if r >= 150 and g >= 1 and b <= 100:
+        #     f_w.writelines(i)
+        #     count += 1
 
     f.close()
     f_w.close()
@@ -87,8 +97,27 @@ def load_ply(path, target):
     with open(target,"w") as f:
         f.write(file_data)
 
+def remove_color(path, target):
+    f = open(path, 'r')
+    f_w = open(target, 'w')
+    data = f.readlines()
+    for i in data[0:7]:
+        f_w.writelines(i)
+    f_w.writelines("end_header\n")
+    for i in data[11:]:
+        tmp = i.split(" ")
+        # print(tmp)
+        # print(type(i))
+        i = i.replace(tmp[3], "")
+        i = i.replace(tmp[4], "")
+        i = i.replace(tmp[5], "")
+        i += '\n'
+        # i = i.join("\n")
+        f_w.writelines(i)
 
 path = 'models/my_test_cloud_1.ply'
 count = 0
 target = 'models/test.ply'
+target1 = 'models/test1.ply'
 load_ply(path, target)
+remove_color(target, target1)
